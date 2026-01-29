@@ -315,6 +315,23 @@ precedence  not more on cascade that is the common*/
 }
 
 @layer components {
+  .skip-to-main:not(:focus) {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+
+  .skip-to-main {
+    position: absolute;
+    background: var(--background-accent-main);
+    border-radius: var(--border-radius-2);
+    padding: 1rem;
+  }
+
   /* NAVBAR */
   .site-header {
     display: flex;
@@ -371,7 +388,7 @@ precedence  not more on cascade that is the common*/
       li + li {
         margin-block-start: 1.5rem;
         padding-block-start: 1.5rem;
-        border-top: 2px solid var(--background-accent-light)
+        border-top: 2px solid var(--background-accent-light);
       }
     }
   }
