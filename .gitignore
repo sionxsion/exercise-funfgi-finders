@@ -1,0 +1,18 @@
+*.zip
+*.zip
+*.rar
+*.tar.gz
+
+# OS Generated files (junk)
+.DS_Store
+Thumbs.db
+
+# VS Code settings (optional, if you don't want to share your local config)
+.vscode/
+
+# Node modules (if you ever use npm in the future)
+node_modules/
+
+# custom 
+designs/
+colors-typography
