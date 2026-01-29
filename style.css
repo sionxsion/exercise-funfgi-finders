@@ -324,15 +324,69 @@ precedence  not more on cascade that is the common*/
     gap: 1rem;
   }
 
-  .primary-navigation ul {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 1rem;
+  [aria-controls="primary-nav"] {
+    z-index: 100;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+
+    img {
+      border-radius: 0;
+    }
   }
 
-  .primary-navigation a {
-    text-decoration: none;
+  [aria-controls="primary-nav"] {
+    display: none;
+  }
+
+  .primary-navigation {
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    @media (width < 760px) {
+      display: none;
+      position: absolute;
+      z-index: 10;
+      top: 0;
+      right: 0;
+      font-size: var(--font-size-lg);
+      font-weight: 700;
+      font-family: var(--ff-heading);
+      background-color: var(--background-accent-main);
+      padding: 2rem;
+      border-radius: 0 0 0 var(--border-radius-3);
+
+      ul {
+        gap: 0;
+        flex-direction: column;
+      }
+
+      li + li {
+        margin-block-start: 1.5rem;
+        padding-block-start: 1.5rem;
+        border-top: 2px solid var(--background-accent-light)
+      }
+    }
+  }
+
+  @media (width < 760px) {
+    [aria-controls="primary-nav"] {
+      display: block;
+    }
+    /* with plus + affects only the next sibling while 
+    adding ~ affects to a following sibling not neccessary the nearest one 
+    [aria-expanded="true"] + .primary-navigation { 
+    */
+    [aria-expanded="true"] ~ .primary-navigation {
+      display: block;
+    }
   }
 
   /* Footer */
