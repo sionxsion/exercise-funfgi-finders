@@ -248,6 +248,13 @@ precedence  not more on cascade that is the common*/
 }
 
 @layer layout {
+
+  .flex-group {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
   /* 
     this affects child elements starting with
     the second child and all elements from there
@@ -275,24 +282,34 @@ precedence  not more on cascade that is the common*/
         --padding: 4.5rem;
       }
     }
+  }
 
-    .equal-columns {
-      display: grid;
-      gap: var(--equal-columns-gap, 1rem);
-      align-items: var(--equal-columns-vertical-alignment, stretch);
+  .grid-auto-fit {
+    --auto-fit-min-col-size: 250px;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(min(var(--auto-fit-min-col-size), 100%), 1fr)
+    );
+  }
 
-      @media (width > 760px) {
-        grid-auto-flow: column;
-        grid-auto-columns: 1fr;
-      }
+  .equal-columns {
+    display: grid;
+    gap: var(--equal-columns-gap, 1rem);
+    align-items: var(--equal-columns-vertical-alignment, stretch);
 
-      &[data-gap="large"] {
-        --equal-columns-gap: 2rem;
-      }
+    @media (width > 760px) {
+      grid-auto-flow: column;
+      grid-auto-columns: 1fr;
+    }
 
-      &[data-alignment="centered"] {
-        --equal-columns-vertical-alignment: center;
-      }
+    &[data-gap="large"] {
+      --equal-columns-gap: 2rem;
+    }
+
+    &[data-alignment="centered"] {
+      --equal-columns-vertical-alignment: center;
     }
   }
 
@@ -451,10 +468,18 @@ precedence  not more on cascade that is the common*/
     }
   }
 
-  /* CARDS SECTION */
+  .mushroom-guide {
+    --card-title-font-size: var(--font-size-lg);
+    --card-title-color: var(--text-high-contrast);
+    --card-gap: 0.75rem;
+  }
 
+  /* CARDS SECTION */
   .card {
+    display: flex;
+    flex-direction: column;
     padding: 1rem;
+    gap: var(--card-gap, 1rem);
     background-color: var(--background-light);
     border-radius: var(--border-radius-3);
 
@@ -467,6 +492,49 @@ precedence  not more on cascade that is the common*/
     font-size: var(--card-title-font-size, var(--font-size-heading-regular));
     color: var(--card-title-color, var(--text-brand));
     margin: 1rem 0;
+  }
+
+  .card__note {
+    margin-block-start: auto;
+    background-color: var(--background-extra-light);
+    padding: 0.75rem;
+    border-radius: var(--border-radius-1);
+  }
+
+  .tag-list {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+
+    li {
+      font-family: var(--ff-heading);
+      size: var(--font-size-sm);
+      color: var(--text-high-contrast);
+
+      padding: 0rem 0.25rem;
+      background-color: var(--tag-bg);
+      border-radius: var(--border-radius-1);
+    }
+
+    [data-edible="edible"] {
+      --tag-bg: var(--background-accent-main);
+    }
+
+    [data-edible="toxic"] {
+      --tag-bg: var(--clr-red-500);
+    }
+
+    [data-season="summer"] {
+      --tag-bg: var(--clr-brand-500);
+    }
+
+    [data-season="spring"] {
+      --tag-bg: var(--clr-teal-500);
+    }
+
+    [data-season="fall"] {
+      --tag-bg: var(--clr-orange-500);
+    }
   }
 
   .button {
@@ -487,6 +555,14 @@ precedence  not more on cascade that is the common*/
   .button:focus-visible {
     color: var(--text-high-contrast);
     background-color: var(--background-accent-light);
+  }
+
+  select {
+    padding: 0.5rem 1rem;
+    background-color: var(--background-accent-main);
+    border: 0;
+    border-radius: var(--border-radius-2);
+    color: var(--text-high-contrast);
   }
 }
 
