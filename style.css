@@ -85,6 +85,8 @@ precedence  not more on cascade that is the common*/
     --clr-gray-100: hsl(0, 2%, 79%);
     --clr-brand-400: hsl(25, 88%, 75%);
     --clr-brand-500: hsl(25, 88%, 66%);
+    --clr-green-200: hsl(143, 19%, 79%);
+    --clr-green-300: hsl(143, 19%, 69%);
     --clr-green-400: hsl(143, 19%, 49%);
     --clr-green-500: hsl(143, 38%, 37%);
     --clr-green-600: hsl(145, 29%, 19%);
@@ -93,6 +95,11 @@ precedence  not more on cascade that is the common*/
     --clr-brown-700: hsl(9, 8%, 16%);
     --clr-brown-800: hsl(0, 6%, 15%);
     --clr-brown-900: hsl(0, 6%, 13%);
+    /* light */
+    --clr-brown-100: hsl(10, 5%, 90%);
+    --clr-brown-200: hsl(9, 8%, 85%);
+    --clr-brown-300: hsl(0, 6%, 75%);
+    --clr-brown-400: hsl(0, 6%, 60%);
 
     --clr-orange-500: hsl(28, 43%, 28%);
     --clr-red-500: hsl(359, 34%, 24%);
@@ -151,6 +158,20 @@ precedence  not more on cascade that is the common*/
     --border-radius-1: 0.25rem;
     --border-radius-2: 0.5rem;
     --border-radius-3: 0.75rem;
+
+    /* light theme */
+    @media (prefers-color-scheme: light) {
+      --text-main: var(--clr-brown-700);
+      --text-high-contrast: var(--clr-brown-900);
+
+      --background-extra-dark: var(var(--clr-brown-200));
+      --background-accent-dark: var(--clr-green-300);
+      --background-extra-light: var(--clr-brown-100);
+      --background-light: var(--clr-brown-200);
+      --background-main: var(--clr-brown-300);
+      --background-dark: var(--clr-brown-400);
+      --background-extra-dark: var(--clr-brown-500);
+    }
   }
 
   html {
@@ -457,7 +478,7 @@ precedence  not more on cascade that is the common*/
     background-image: url("/assets/hero.webp");
     background-size: cover;
     background-position: center;
-    color: light-dark(var(--clr-brown-500));
+    color: var(--clr-brown-100);
 
     animation: fade-out forwards;
     animation-timeline: view(); /* scroll() */
