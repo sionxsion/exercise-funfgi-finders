@@ -150,6 +150,20 @@ precedence  not more on cascade that is the common*/
     --border-radius-3: 0.75rem;
   }
 
+  html {
+    font-family: var(--ff-body);
+    line-height: 1.6;
+
+    /* scroll-behavior: smooth; */
+    scroll-padding: 2rem;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
   body {
     font-family: var(--ff-body);
     font-size: var(--font-size-regular);
@@ -248,7 +262,6 @@ precedence  not more on cascade that is the common*/
 }
 
 @layer layout {
-
   .flex-group {
     display: flex;
     gap: 0.5rem;
@@ -472,6 +485,86 @@ precedence  not more on cascade that is the common*/
     --card-title-font-size: var(--font-size-lg);
     --card-title-color: var(--text-high-contrast);
     --card-gap: 0.75rem;
+  }
+
+  /* FAQ */
+  .faq-bento {
+    display: grid;
+    gap: 1rem;
+    /* 
+    this defines the areas like a row with a name can be anything but 
+    for this case this ones are descriptives, one element per row
+    */
+    grid-template-areas:
+      "card-one"
+      "card-two"
+      "card-three"
+      "card-four";
+
+    @media (width > 600px) {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-areas:
+        "card-one card-two"
+        "card-three card-four";
+    }
+
+    @media (width > 920px) {
+      grid-template-columns: repeat(3, 1fr);
+      /* 
+      here it specifies which places the card is filling
+      this way card for occupies the third position on row one
+      as well as the same position on row two and this make this one grow
+      same for card three but two position on row two
+      */
+      grid-template-areas:
+        "card-one card-two card-four"
+        "card-three card-three card-four";
+    }
+
+    .card > img {
+      height: 100%;
+      object-fit: cover;
+    }
+
+    @media (width > 600px) {
+      .card:nth-child(even) > img {
+        order: 3;
+      }
+    }
+
+    @media (width > 920px) {
+      .card:nth-child(4) > img {
+        order: 0;
+      }
+    }
+
+    /* 
+    finally I need to say which elements occupied wich area to make this work
+    so I take the first child and its area is card one
+    the same for the rest, now is like this is linked and after this it works
+    */
+    .card:nth-child(1) {
+      grid-area: card-one;
+    }
+    .card:nth-child(2) {
+      grid-area: card-two;
+    }
+    .card:nth-child(3) {
+      grid-area: card-three;
+      @media (width > 920px) {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: 1fr 1fr;
+
+        img {
+          grid-column: 1 / 2;
+          grid-row: 1 / 3;
+        }
+      }
+    }
+    .card:nth-child(4) {
+      grid-area: card-four;
+    }
   }
 
   /* CARDS SECTION */
