@@ -1,7 +1,10 @@
+@view-transition {
+  navigation: auto;
+}
+
 /* I can declare the layer like this it will fix the order of 
 precedence  not more on cascade that is the common*/
 /* @layer reset, base, layout, components; */
-
 @layer reset {
   *,
   *::before,
@@ -310,6 +313,9 @@ precedence  not more on cascade that is the common*/
     padding: 1rem;
     flex-wrap: wrap;
     gap: 1rem;
+
+    overflow-x: clip;
+    position: relative;
   }
 
   [aria-controls="primary-nav"] {
@@ -339,21 +345,47 @@ precedence  not more on cascade that is the common*/
     }
 
     @media (width < 760px) {
-      display: none;
-      position: absolute;
-      z-index: 10;
-      top: 0;
-      right: 0;
-      font-size: var(--font-size-lg);
-      font-weight: 700;
-      font-family: var(--ff-heading);
-      background-color: var(--background-accent-main);
-      padding: 2rem;
-      border-radius: 0 0 0 var(--border-radius-3);
+      & {
+        display: none;
+        opacity: 0;
+        transition:
+          opacity 1s,
+          display 1s,
+          translate 1s;
+        transition-behavior: allow-discrete;
+        translate: 100% 0;
+
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        font-size: var(--font-size-lg);
+        font-weight: 700;
+        font-family: var(--ff-heading);
+        background-color: var(--background-accent-main);
+        padding: 2rem;
+        border-radius: 0 0 0 var(--border-radius-3);
+      }
 
       ul {
         gap: 0;
         flex-direction: column;
+      }
+
+      li {
+        --delay: 0.5s;
+        translate: 50%;
+        transition:
+          translate var(--delay) var(--delay),
+          opacity var(--delay) var(--delay);
+      }
+
+      li:nth-child(2) {
+        --delay: 0.7s;
+      }
+
+      li:nth-child(3) {
+        --delay: 0.9s;
       }
 
       li + li {
@@ -374,6 +406,22 @@ precedence  not more on cascade that is the common*/
     */
     [aria-expanded="true"] ~ .primary-navigation {
       display: block;
+      opacity: 1;
+      translate: 0 0;
+
+      @starting-style {
+        opacity: 0;
+        translate: 100% 0;
+      }
+
+      li {
+        translate: 0 0;
+
+        @starting-style {
+          opacity: 0;
+          translate: 0 20%;
+        }
+      }
     }
   }
 
@@ -410,6 +458,10 @@ precedence  not more on cascade that is the common*/
     background-size: cover;
     background-position: center;
     color: light-dark(var(--clr-brown-500));
+
+    animation: fade-out forwards;
+    animation-timeline: view(); /* scroll() */
+    animation-range-start: exit;
   }
 
   .hero__title {
@@ -604,6 +656,13 @@ precedence  not more on cascade that is the common*/
   [hidden] {
     display: none;
   }
+
+  /* to prevent animation resizing in combination with js */
+  .resizing * {
+    transition: none;
+    animation: none;
+  }
+
   .visually-hidden {
     clip: rect(0 0 0 0);
     clip-path: inset(50%);
@@ -693,3 +752,12 @@ precedence  not more on cascade that is the common*/
   .card:not(:has([data-season="fall"])) {
   display: none;
 } */
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
